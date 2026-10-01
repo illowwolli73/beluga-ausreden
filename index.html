@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Die offizielle Beluga-Ausredentasse</title>
+<style>
+:root{--navy:#102d4f;--red:#c62828;--cream:#fff7e7;--wood:#d6a15d}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;
+background:linear-gradient(#f6b45e 0,#f9dfaa 38%,#77a9c7 39%,#174d70 100%);
+color:#142536;display:grid;place-items:center;padding:22px}
+.wrap{width:min(760px,100%)}
+.card{background:rgba(255,247,231,.96);border:7px solid #7a4b25;border-radius:24px;
+box-shadow:0 15px 45px #0005;padding:24px;text-align:center}
+.small{font-weight:800;letter-spacing:.08em;color:var(--navy)}
+h1{margin:.25rem 0;color:var(--navy);font-size:clamp(28px,6vw,52px);line-height:1}
+h1 span{color:var(--red)}
+.sub{font-size:clamp(17px,3vw,23px);font-weight:700}
+.excuse{margin:25px 0;padding:24px 18px;border:3px dashed #9b6b37;border-radius:18px;
+background:#fff;font-size:clamp(24px,5vw,38px);font-weight:850;min-height:150px;
+display:grid;place-items:center}
+button{border:0;border-radius:999px;padding:16px 25px;font-size:20px;font-weight:900;
+background:var(--red);color:#fff;cursor:pointer;box-shadow:0 6px 0 #861818}
+button:active{transform:translateY(4px);box-shadow:0 2px 0 #861818}
+.counter{margin-top:16px;font-weight:700;color:#52606c}
+.footer{margin-top:18px;color:#fff;text-align:center;font-weight:800;text-shadow:0 2px 4px #0008}
+</style>
+</head>
+<body>
+<main class="wrap">
+<section class="card">
+<div class="small">⚓ KAPITÄN DER BELUGA ⚓</div>
+<h1>DIE OFFIZIELLE<br><span>BELUGA-AUSREDENTASSE</span></h1>
+<p class="sub">Warum kann die Beluga heute leider nicht ablegen? 😂</p>
+<div id="excuse" class="excuse">Der Vergaser muss noch gemacht werden. 🔧</div>
+<button id="next">🎲 Nächste Ausrede</button>
+<div id="counter" class="counter"></div>
+</section>
+<div class="footer">Mehr Ausreden als Seemeilen! 😂⚓</div>
+</main>
+<script>
+const a1=[
+"Der Vergaser","Der Motor","Die Batterie","Der Anlasser","Die Zündung","Der Impeller",
+"Der Tank","Die Bilgenpumpe","Der Propeller","Das Getriebe","Die Kühlung","Der Gaszug",
+"Die Elektrik","Das Ladegerät","Der Fender","Der Anker","Das Verdeck","Die Beleuchtung",
+"Das Funkgerät","Der Tiefenmesser"
+];
+const a2=[
+"muss noch geprüft werden","klingt heute irgendwie komisch","braucht erst einmal Ruhe",
+"macht ein Geräusch, das gestern noch nicht da war","ist bestimmt noch nicht ganz fertig",
+"sollte vorsichtshalber noch einmal kontrolliert werden","gefällt mir heute nicht",
+"hat bestimmt irgendwo ein Problem","muss erst noch sauber gemacht werden",
+"ist heute verdächtig unauffällig"
+];
+const weather=[
+"Bestimmt kommt gleich Regen. 🌧️","Heute ist zu viel Wind. 🌬️",
+"Die Temperaturen sind noch nicht optimal. 🌡️","Die Sonne steht heute ungünstig. ☀️",
+"Die Luftfeuchtigkeit ist eindeutig zu hoch.","Die Wolken sehen verdächtig aus.",
+"Für später ist bestimmt irgendwas gemeldet.","Heute ist es zu warm zum Schrauben und zu kalt zum Fahren."
+];
+const mosel=[
+"Der Wasserstand gefällt mir nicht. ⚓","Heute ist mir zu viel Verkehr auf der Mosel.",
+"Die Schleusen haben bestimmt lange Wartezeiten.","Ich warte lieber noch auf die anderen.",
+"Heute lohnt sich das Ablegen nicht mehr. ⏰","Bestimmt wird irgendwo schon wieder gebaut.",
+"Die Berufsschifffahrt sieht heute besonders beruflich aus.","Die Mosel ist heute irgendwie zu nass.",
+"Wir könnten fahren – aber dann müssten wir ja auch wieder zurück.",
+"Ich fahre seit 10 Jahren Boot und wurde noch nie kontrolliert – warum also ausgerechnet heute? 😎"
+];
+const captain=[
+"Ich muss erst noch was am Boot machen.","Ich will erst noch etwas Werkzeug besorgen.",
+"Ich wollte eigentlich … aber …","Heute ist kein guter Tag zum Fahren.",
+"Ich habe gerade erst alles weggeräumt.","Das Bier ist schon kalt – jetzt lohnt Ablegen auch nicht mehr. 🍺",
+"Ich muss erst noch kurz nach dem Vergaser schauen.","Morgen ist auch noch ein Tag.",
+"Ich habe ein ganz schlechtes Gefühl – ohne konkreten Grund.","Erst planen, dann fahren. Ich bin noch beim Planen."
+];
+
+let generated=[];
+for(const x of a1) for(const y of a2) generated.push(`${x} ${y}.`);
+const all=[...generated,...weather,...mosel,...captain];
+let last=-1, count=0;
+
+function nextExcuse(){
+ let i;
+ do{i=Math.floor(Math.random()*all.length)}while(i===last && all.length>1);
+ last=i; count++;
+ document.getElementById("excuse").textContent=all[i];
+ document.getElementById("counter").textContent=`Ausrede Nr. ${count} – ${all.length} verschiedene Ausreden an Bord`;
+}
+document.getElementById("next").addEventListener("click",nextExcuse);
+nextExcuse();
+</script>
+</body>
+</html>
